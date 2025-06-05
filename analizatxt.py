@@ -13,27 +13,28 @@ if metodo == "T" or metodo == "A":
     if metodo == "T":
         texto = input("Ingresa el TEXTO a analizar: ")
 
-        texto_limpio = re.sub(r'[^a-z\s]', '', texto) #elimina caracteres distintos a letras y espacios
+        texto_limpio = re.sub(r'[^a-z\s]', '', texto) #elimina caracteres distintos a letras y se remplazan con espacios en la cadena "texto"
 
-        texto = texto_limpio
+        texto = texto_limpio          # queda el texto sin espacios
 
-        palabras = texto.split()
-        numPalabras = len(palabras)
+        palabras = texto.split()      # se genera la lista PALABRAS con cada una de las palanras del txt
+        numPalabras = len(palabras)   # se verifica la longitud de la lista
 
-        longitud_maxima = max(len(palabra) for palabra in palabras) #se determina la long de cada palabra
+        longitud_maxima = max(len(palabra) for palabra in palabras)                 #se determina la long de cada palabra
         palabras_mas_largas = [palabra for palabra in palabras if len(palabra) == longitud_maxima]  # se elige la mas larga
 
-        dict = {}
+        dict = {}     # se genera un diccionario vacio
+
         for letra in texto:
             if letra in dict:
-                dict[letra] += 1
+                dict[letra] += 1 # se incrementa el numero de la letra si ya existe
             else:
-                dict[letra] = 1
+                dict[letra] = 1  # se iguala a uno si no existe(nueva)
 
-        contPal = Counter(palabras)
-        contLet = Counter(dict)
-        palMasC = contPal.most_common(2)
-        letMasC = contLet.most_common(2)
+        contPal = Counter(palabras)     # contamos las palabras de la lista palabras
+        contLet = Counter(dict)         # contamos las letras del dictionario
+        palMasC = contPal.most_common(2) #  se determinan las dos palabras mas comunes
+        letMasC = contLet.most_common(2) # se determina cual letra es la mas comun
 
         print(Fore.YELLOW +  "-" * 120 + Fore.WHITE)
         print(f"El texto contiene las palabras: {Fore.YELLOW} {palabras} {Fore.WHITE} y son {Fore.YELLOW} {numPalabras} {Fore.WHITE} palabras")
@@ -43,11 +44,11 @@ if metodo == "T" or metodo == "A":
     else:
         archivo = input("introduce el nombre del archivo a analizar: ")
         try:
-            arch = open(archivo, 'r')
-            palabras = arch.readline()
-            arch.close()
+            arch = open(archivo, 'r')   # abrimos el archivo
+            palabras = arch.readline()   # se lee palabra por palabra
+            arch.close()                # cerramos el arch
             
-            numpal = palabras.split()
+            numpal = palabras.split()    # creamos la lista numpal con las palabras del archivo
             texto_limpio = re.sub(r'[^a-z\s,^A-Z\s,^0-9\s]', '', palabras) #elimina caracteres distintos a letras (May, Min), Nums y espacios
             numpal = texto_limpio.split()
             numPalabras = len(numpal)
@@ -72,6 +73,7 @@ if metodo == "T" or metodo == "A":
             print(f"La palabra mas comun es: {Fore.YELLOW} {palMasC} {Fore.WHITE} y la letra mas comun es: {Fore.YELLOW} {letMasC} {Fore.WHITE}")
             print(f"La palabra mas largas es: {Fore.YELLOW} {palabras_mas_largas} {Fore.WHITE} con una logitud de {Fore.YELLOW} {longitud_maxima} {Fore.WHITE} letras")
             print(Fore.YELLOW +  "-" * 120 + Fore.WHITE)
+        
         except FileNotFoundError:
             print(Fore.YELLOW +  "-" * 60 + Fore.WHITE)
             print("El archivo no existe o se tecleo mal.....")
@@ -81,5 +83,5 @@ else:
     print("Debe teclear (T) para texto o (A) para Archivo....")
     print(Fore.YELLOW +  "-" * 60 + Fore.WHITE)
 
-dict.clear
+dict.clear            #reiniciamos dictionario y numPalabras
 numPalabras = 0
