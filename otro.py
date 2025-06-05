@@ -1,4 +1,5 @@
-import getpass  # Para ocultar la contraseña al escribirla
+import getpass  # Para ocultar la contraseña al escribirla sin echo
+import maskpass   # Para ocultar la contraseña al escribirla con echo
 
 # Base de datos de usuarios (en producción usarías una base de datos real)
 usuarios = {
@@ -25,7 +26,7 @@ def iniciar_sesion():
     limpiar_pantalla()
     print("=== SISTEMA DE AUTENTICACIÓN ===")
     
-    usuario = input("Usuario: ").strip()
+    usuario = input("Usuario: ").strip()   # con strip elimina espacios antes y despues del pasw
     
     if usuario not in usuarios:
         print("\nUsuario no encontrado.")
@@ -35,7 +36,8 @@ def iniciar_sesion():
         print("\nCuenta bloqueada. Contacta al administrador.")
         return False
     
-    password = getpass.getpass("Contraseña: ")
+    password = maskpass.askpass(" ") # pide la contraseña arrojando * como echo
+    #getpass.getpass("Contraseña: ") pide la contraseña sin echo
     
     if usuarios[usuario]["password"] == password:
         usuarios[usuario]["intentos"] = 0  # Reiniciar contador de intentos
