@@ -1,1 +1,4 @@
 ¡Claro! Aqui tienes que los ** sonidos mas agudos son !#los &&mas insoportables** 
+git remote add origin https://github.com/ahruiz/de-pba.git
+     #comando para cambiar carpeta en git remoto
+     

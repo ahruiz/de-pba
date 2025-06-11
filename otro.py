@@ -1,17 +1,13 @@
+from tabulate import tabulate
+from datetime import datetime
 import getpass  # Para ocultar la contraseña al escribirla sin echo
 import maskpass   # Para ocultar la contraseña al escribirla con echo
 
 # Base de datos de usuarios (en producción usarías una base de datos real)
 usuarios = {
     "admin": {
-        "password": "AdminSecure123",
+        "password": "1234",
         "nombre": "Administrador",
-        "intentos": 0,
-        "bloqueado": False
-    },
-    "juan": {
-        "password": "JuanClave456",
-        "nombre": "Juan Pérez",
         "intentos": 0,
         "bloqueado": False
     }
@@ -20,7 +16,7 @@ usuarios = {
 MAX_INTENTOS = 3
 
 def limpiar_pantalla():
-    print("\n" * 5)  # Simula limpiar la pantalla
+    print("\n" * 6)  # Simula limpiar la pantalla
 
 def iniciar_sesion():
     limpiar_pantalla()
@@ -52,19 +48,53 @@ def iniciar_sesion():
             print("¡Cuenta bloqueada por demasiados intentos fallidos!")
         
         return False
+    
+data = []
+
+def ret():
+    saldo = 1000
+    ret = int(input("Ingrese el monto del retiro:"))
+    nsaldo = saldo - ret
+    fecha = datetime.now()
+    #numoper = numoper + 1
+    
+    data.append(str(saldo))
+    data.append(str(ret))
+    data.append(str(nsaldo))
+    data.append(str(fecha))
+    data.append("1")
+    print(f"Saldo actual   : {saldo}")
+    print(f"Monto de retiro: {ret}")
+    print(f"Nuevo saldo    : {nsaldo}")
+    print(f"fecha          : {fecha}")
+    #columnas =["SALDO", "RETIRO", "NUEVO SALDO", "FECHA", "FOLIO"]
+    #print(tabulate(data, headers=columnas, tablefmt='grid'))    
+    return True
 
 def menu_principal():
     while True:
-        print("\n1. Iniciar sesión")
+        print("1. Iniciar sesión")
         print("2. Salir")
         opcion = input("Seleccione una opción: ")
         
         if opcion == "1":
             if iniciar_sesion():
-                # Área restringida - solo para usuarios autenticados
-                input("\nPresiona Enter para continuar...")
-                # Aquí iría el código de la aplicación principal
-                break
+                print("1. Retiros")  
+                print("2. Depositos")
+                print("3. Retiros")
+                print("4. Salir")
+
+                srv = input("\nSeleccione una opcion: ")
+                if srv == "1":
+                    ret()
+                elif srv == "2":
+                    print("modulo en proceso")
+                elif srv == "3":
+                    print("modulo en proceso")
+                else:
+                    print("saliendo del sistema.....")
+                    break
+            #break
         elif opcion == "2":
             print("\nSaliendo del sistema...")
             break
